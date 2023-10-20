@@ -29,20 +29,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+        $toastr = [
+            'message' => 'User Login Successfully',
+            'alert-type' => 'success',
+        ];
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+        return redirect()->intended(RouteServiceProvider::HOME)->with($toastr);
     }
 }

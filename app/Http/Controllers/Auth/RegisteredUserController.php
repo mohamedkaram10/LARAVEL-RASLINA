@@ -48,6 +48,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $toastr = [
+            'message' => 'User Registered Successfully',
+            'alert-type' => 'success',
+        ];
+
+        return redirect(RouteServiceProvider::HOME)->with($toastr);
     }
 }

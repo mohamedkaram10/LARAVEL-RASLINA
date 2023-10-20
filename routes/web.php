@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('dashboard', function () {
+//     return view('admin.index');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Admin Routes
 Route::as('admin.')->prefix('admin')->controller(AdminController::class)->group(function () {
+    Route::get('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('profile', 'profile')->name('profile.view');
+    Route::get('profile/edit/{id}', 'edit_profile')->name('profile.edit');
+    Route::post('profile/update', 'update_profile')->name('profile.update');
+    Route::post('profile/password-change', 'change_password')->name('profile.change.password');
     Route::get('logout', 'destroy')->name('logout');
 });
 

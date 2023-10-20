@@ -18,6 +18,9 @@
     <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+        <!-- Toastr -->
+        <link href="{{ asset('backend/assets/libs/toastr/build/toastr.min.css') }}"
+            rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -104,7 +107,31 @@
     <script src="{{ asset('backend/assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('backend/assets/libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/toastr/build/toastr.min.js') }}"></script>
+    <script>
+        @if (Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}"
 
+        switch (type) {
+            case 'info' :
+            toastr.info("{{ Session::get('message') }}");
+            break;
+
+            case 'success' :
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+            case 'wraning' :
+            toastr.wraning("{{ Session::get('message') }}");
+            break;
+
+            case 'error' :
+            toastr.error("{{ Session::get('message') }}");
+            break;
+        }
+        @endif
+    </script>
+    
 </body>
 
 </html>
